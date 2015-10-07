@@ -1,0 +1,11 @@
+name: 'elixir'
+version: '0.1.0'
+summary: 'Nanobox engine for generic Elixir deployments'
+language: 'elixir'
+stability: 'stable'
+license: 'MIT'
+generic: true
+
+authors:
+  - tyler@nanobox.io
+  - braxton@nanobox.io
