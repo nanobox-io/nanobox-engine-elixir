@@ -3,7 +3,7 @@
 This is a generic Elixir engine used to launch [Nanobox](http://nanobox.io).
 
 ##### NOTE: This Engine is a Work in Progress
-If you're interested in helping to complete this engine, answers to the questions in [this issue](https://github.com/nanobox-io/nanobox-engine-elixir/issues/2) would be great.*
+*If you're interested in helping to complete this engine, answers to the questions in [this issue](https://github.com/nanobox-io/nanobox-engine-elixir/issues/2) would be great.*
 
 ## App Detection
 To detect an Elixir app, this engine checks for a `mix.exs` in the root of the project.
