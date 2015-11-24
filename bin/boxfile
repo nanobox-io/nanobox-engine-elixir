@@ -6,7 +6,7 @@
 . /opt/nos/common.sh
 
 # initialize Nos with the original arguments
-nos_init $@
+nos_init "$@"
 
 # insert process to build the app's Boxfile
 # documentation: http://docs.nanobox.io/engines/scripts/boxfile/
