@@ -11,11 +11,7 @@ nos_init "$@"
 # source common lib
 . ${engine_lib_dir}/elixir.sh
 
-# insert process to prepare the environment for the build process
-# documentation: http://docs.nanobox.io/engines/scripts/prepare/
+# copy the release into the live code directory
+publish_release
 
-install_runtime
-
-mix_cache_dir
-
-create_profile_links
+exit 0

@@ -2,6 +2,8 @@
 # -*- mode: bash; tab-width: 2; -*-
 # vim: ts=2 sw=2 ft=bash noet
 
-# insert process of removing tools needed for the build process,
-# but not necessary in the live app.
-# documentation: http://docs.nanobox.io/engines/scripts/cleanup/
+# source the Nos framework
+. /opt/nanobox/nos/common.sh
+
+# initialize Nos with the original arguments
+nos_init "$@"
