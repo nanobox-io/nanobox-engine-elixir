@@ -1,18 +1,37 @@
 # -*- mode: bash; tab-width: 2; -*-
 # vim: ts=2 sw=2 ft=bash noet
 
-nodejs_runtime() {
-	if [[ -f $(nos_code_dir)/package.json ]]; then
-		echo $(nos_validate "$(nos_payload 'config_runtime')" "string" "nodejs")
-	fi
-}
+# source nodejs
+. ${engine_lib_dir}/nodejs.sh
 
 runtime() {
 	echo $(nos_validate "$(nos_payload 'config_runtime')" "string" "elixir")
 }
 
 install_runtime() {
-	nos_install $(runtime) $(nodejs_runtime)
+  pkgs=($(runtime))
+
+  if [[ "$(is_nodejs_required)" = "true" ]]; then
+    pkgs+=("$(nodejs_dependencies)")
+  fi
+  
+  nos_install ${pkgs[@]}
+}
+
+# Uninstall build dependencies
+uninstall_build_packages() {
+  # currently ruby doesn't install any build-only deps... I think
+  pkgs=()
+
+  # if nodejs is required, let's fetch any node build deps
+  if [[ "$(is_nodejs_required)" = "true" ]]; then
+    pkgs+=("$(nodejs_build_dependencies)")
+  fi
+
+  # if pkgs isn't empty, let's uninstall what we don't need
+  if [[ ${#pkgs[@]} -gt 0 ]]; then
+    nos_uninstall ${pkgs[@]}
+  fi
 }
 
 mix_cache_dir() {
@@ -56,12 +75,6 @@ compile_deps() {
 
 compile() {
 	(cd $(nos_code_dir); nos_run_process "mix compile" "mix compile --force")
-}
-
-npm_install() {
-	if [[ -f $(nos_code_dir)/package.json ]]; then
-		(cd $(nos_code_dir); nos_run_process "npm install" "npm install")
-	fi
 }
 
 # Copy the compiled jars into the app directory to run live

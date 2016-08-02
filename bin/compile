@@ -24,6 +24,16 @@ compile_deps
 
 compile
 
-npm_install
+# if nodejs is required, we have a bit more compiling to do
+if [[ "$(is_nodejs_required)" = "true" ]]; then
+  # run npm rebuild only if the runtime has changed
+  npm_rebuild
+
+  # run npm install
+  npm_install
+
+  # run npm prune
+  npm_prune
+fi
 
 exit 0
