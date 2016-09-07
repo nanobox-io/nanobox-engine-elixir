@@ -11,13 +11,7 @@ nos_init "$@"
 # source common lib
 . ${engine_lib_dir}/elixir.sh
 
-# insert process to build the app's Boxfile
-# documentation: http://docs.nanobox.io/engines/scripts/boxfile/
-nos_print_process_start "Generating Engine Boxfile"
+# copy the release into the live code directory
+publish_release
 
-cat <<-END
-code.build:
-  lib_dirs:
-    - .mix
-    - .hex
-END
+exit 0

@@ -3,10 +3,31 @@
 # vim: ts=2 sw=2 ft=bash noet
 
 # source the Nos framework
-. /opt/nos/common.sh
+. /opt/nanobox/nos/common.sh
 
 # initialize Nos with the original arguments
 nos_init "$@"
 
+# source common lib
+. ${engine_lib_dir}/elixir.sh
+
 # insert process to prepare the environment for the build process
 # documentation: http://docs.nanobox.io/engines/scripts/prepare/
+
+install_runtime
+
+mix_cache_dir
+
+create_profile_links
+
+# if nodejs is required, we have a bit more setup to do
+if [[ "$(is_nodejs_required)" = "true" ]]; then
+
+  # add node_modules/.bin to the PATH
+  persist_npm_bin_to_path
+
+  # set the node.js runtime in cache
+  nodejs_persist_runtime
+fi
+
+exit 0
