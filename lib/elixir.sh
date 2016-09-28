@@ -34,25 +34,25 @@ uninstall_build_packages() {
   fi
 }
 
-mix_cache_dir() {
-  [[ ! -f $(nos_code_dir)/.mix ]] && nos_run_process "make mix cache dir" "mkdir -p $(nos_code_dir)/.mix"
-  [[ ! -s ${HOME}/.mix ]] && nos_run_process "link mix cache dir" "ln -s $(nos_code_dir)/.mix ${HOME}/.mix"
-  [[ ! -f $(nos_code_dir)/.hex ]] && nos_run_process "make hex cache dir" "mkdir -p $(nos_code_dir)/.hex"
-  [[ ! -s ${HOME}/.hex ]] && nos_run_process "link hex cache dir" "ln -s $(nos_code_dir)/.hex ${HOME}/.hex"
+mix_dir() {
+  [[ ! -f $(nos_data_dir)/var/mix ]] && nos_run_process "make mix cache dir" "mkdir -p $(nos_data_dir)/var/mix"
+  [[ ! -s ${HOME}/.mix ]] && nos_run_process "link mix cache dir" "ln -s $(nos_data_dir)/var/mix ${HOME}/.mix"
+  [[ ! -f $(nos_data_dir)/var/hex ]] && nos_run_process "make hex cache dir" "mkdir -p $(nos_data_dir)/var/hex"
+  [[ ! -s ${HOME}/.hex ]] && nos_run_process "link hex cache dir" "ln -s $(nos_data_dir)/var/hex ${HOME}/.hex"
 }
 
 create_profile_links() {
   mkdir -p $(nos_data_dir)/etc/profile.d/
   nos_template \
-    "links.sh.mustache" \
-    "$(nos_data_dir)/etc/profile.d/links.sh" \
+    "profile.d/elixir.sh" \
+    "$(nos_data_dir)/etc/profile.d/elixir.sh" \
     "$(links_payload)"
 }
 
 links_payload() {
   cat <<-END
 {
-  "nos_app_dir": "${nos_app_dir}"
+  data_dir: "$(nos_data_dir)"
 }
 END
 }
@@ -81,4 +81,22 @@ compile() {
 publish_release() {
 	nos_print_bullet "Moving build into live code directory..."
 	rsync -a $(nos_code_dir)/ $(nos_app_dir)
+}
+
+copy_cached_files() {
+  if [ -d $(nos_cache_dir)/mix ]; then
+    rsync -a $(nos_cache_dir)/mix/ $(nos_data_dir)/var/mix
+  fi
+  if [ -d $(nos_cache_dir)/hex ]; then
+    rsync -a $(nos_cache_dir)/hex/ $(nos_data_dir)/var/hex
+  fi
+}
+
+save_cached_files() {
+  if [ -d $(nos_data_dir)/var/mix ]; then
+    rsync -a --delete $(nos_data_dir)/var/mix/ $(nos_cache_dir)/mix
+  fi
+  if [ -d $(nos_data_dir)/var/hex ]; then
+    rsync -a --delete $(nos_data_dir)/var/hex/ $(nos_cache_dir)/hex
+  fi
 }
