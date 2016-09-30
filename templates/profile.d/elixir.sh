@@ -2,9 +2,9 @@
 # vim: ts=2 sw=2 ft=bash noet
 
 if [ ! -s ${HOME}/.mix ]; then
-  ln -sf {{data_dir}}/var/mix ${HOME}/.mix
+  ln -sf {{code_dir}}/.mix ${HOME}/.mix
 fi
 
 if [ ! -s ${HOME}/.hex ]; then
-  ln -sf {{data_dir}}/var/hex ${HOME}/.hex
+  ln -sf {{code_dir}}/.hex ${HOME}/.hex
 fi
