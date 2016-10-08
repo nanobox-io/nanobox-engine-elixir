@@ -11,21 +11,18 @@ nos_init "$@"
 # source common lib
 . ${engine_lib_dir}/elixir.sh
 
-# insert process to prepare the environment for the build process
-# documentation: http://docs.nanobox.io/engines/scripts/prepare/
+install_runtime_packages
 
-install_runtime
-
-mix_dir
-
-create_profile_links
-
-mix_local_hex
-
-mix_local_rebar
-
-get_deps
-
-compile_deps
+# mix_dir
+# 
+# create_profile_links
+# 
+# mix_local_hex
+# 
+# mix_local_rebar
+# 
+# get_deps
+# 
+# compile_deps
 
 exit 0
