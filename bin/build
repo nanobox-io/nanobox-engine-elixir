@@ -19,6 +19,6 @@ install_hex
 
 install_rebar
 
-compile_deps
+fetch_deps
 
 exit 0
