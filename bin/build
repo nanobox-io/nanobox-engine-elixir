@@ -13,16 +13,12 @@ nos_init "$@"
 
 install_runtime_packages
 
-# mix_dir
-# 
-# create_profile_links
-# 
-# mix_local_hex
-# 
-# mix_local_rebar
-# 
-# get_deps
-# 
-# compile_deps
+prep_env
+
+install_hex
+
+install_rebar
+
+compile_deps
 
 exit 0

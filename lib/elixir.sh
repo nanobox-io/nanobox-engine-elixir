@@ -54,57 +54,62 @@ query_dependencies() {
   echo "${deps[@]}"
 }
 
-# create cache directories and link mix to them
-setup_mix() {
-	if [[ ! -f $(nos_code_dir)/.mix ]]; then
-		mkdir -p $(nos_code_dir)/.mix
+# ensure MIX_HOME and HEX_HOME are set properly
+prep_env() {
+	mix_home="$(nos_code_dir)/.mix"
+	hex_home="$(nos_code_dir)/.hex"
+	nos_set_evar      'MIX_HOME' $mix_home
+	nos_persist_evar  'MIX_HOME' $mix_home
+	nos_set_evar      'HEX_HOME' $hex_home
+	nos_persist_evar  'HEX_HOME' $hex_home
+}
+
+# install hex locally
+install_hex() {
+	if [[ -f $(nos_code_dir)/mix.exs ]]; then
+		cd $(nos_code_dir)
+		nos_run_process "Installing hex" \
+			"mix local.hex --force"
+		cd - >/dev/null
 	fi
-	
-	if [[ ! -s ${HOME}/.mix ]]; then
-		ln -s $(nos_code_dir)/.mix ${HOME}/.mix
-	fi
-	
-	if [[ ! -f $(nos_code_dir)/.hex ]]; then
-		mkdir -p $(nos_code_dir)/.hex
-	fi
-	
-	if [[ ! -s ${HOME}/.hex ]]; then
-		ln -s $(nos_code_dir)/.hex ${HOME}/.hex
+}
+
+# install rebar locally
+install_rebar() {
+	if [[ -f $(nos_code_dir)/mix.exs ]]; then
+		cd $(nos_code_dir)
+		nos_run_process "Installing rebar" \
+			"mix local.rebar --force"
+		cd - >/dev/null
 	fi
 }
 
-create_profile_links() {
-  mkdir -p $(nos_data_dir)/etc/profile.d/
-  nos_template \
-    "profile.d/elixir.sh" \
-    "$(nos_data_dir)/etc/profile.d/elixir.sh" \
-    "$(links_payload)"
+# fetch dependencies via mix
+fetch_deps() {
+	if [[ -f $(nos_code_dir)/mix.exs ]]; then
+		cd $(nos_code_dir)
+		nos_run_process "Fetching mix dependencies" \
+			"mix deps.get --force"
+		cd - >/dev/null
+	fi
 }
 
-links_payload() {
-  cat <<-END
-{
-  code_dir: "$(nos_code_dir)"
-}
-END
-}
-
-mix_local_hex() {
-	(cd $(nos_code_dir); nos_run_process "mix local.hex" "mix local.hex --force")
-}
-
-mix_local_rebar() {
-	(cd $(nos_code_dir); nos_run_process "mix local.rebar" "mix local.rebar --force")
-}
-
-get_deps() {
-	(cd $(nos_code_dir); nos_run_process "mix deps.get" "mix deps.get --force")
-}
-
+# compile dependencies via mix
 compile_deps() {
-	(cd $(nos_code_dir); nos_run_process "mix deps.compile" "mix deps.compile --force")
+	if [[ -f $(nos_code_dir)/mix.exs ]]; then
+		cd $(nos_code_dir)
+		nos_run_process "Compiling mix dependencies" \
+			"mix deps.compile --force"
+		cd - >/dev/null
+	fi
 }
 
+# compile the application
 compile() {
-	(cd $(nos_code_dir); nos_run_process "mix compile" "mix compile --force")
+	if [[ -f $(nos_code_dir)/mix.exs ]]; then
+		cd $(nos_code_dir)
+		nos_run_process "Compiling app" \
+			"mix compile --force"
+		cd - >/dev/null
+	fi
 }
