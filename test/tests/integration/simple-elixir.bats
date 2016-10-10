@@ -12,7 +12,7 @@ payload() {
   "cache_dir": "/tmp/cache",
   "etc_dir": "/data/etc",
   "env_dir": "/data/etc/env.d",
-  "config": {"package": "local/simple-elixir"}
+  "config": {}
 }
 END
 }
@@ -41,9 +41,6 @@ setup() {
 }
 
 @test "boxfile" {
-  if [[ ! -f /engine/bin/boxfile ]]; then
-    skip "No boxfile script"
-  fi
   run /engine/bin/boxfile "$(payload)"
 
   echo "$output"
@@ -52,9 +49,6 @@ setup() {
 }
 
 @test "build" {
-  if [[ ! -f /engine/bin/build ]]; then
-    skip "No build script"
-  fi
   run /engine/bin/build "$(payload)"
 
   echo "$output"
@@ -63,9 +57,6 @@ setup() {
 }
 
 @test "compile" {
-  if [[ ! -f /engine/bin/compile ]]; then
-    skip "No compile script"
-  fi
   run /engine/bin/compile "$(payload)"
 
   echo "$output"
@@ -74,9 +65,6 @@ setup() {
 }
 
 @test "cleanup" {
-  if [[ ! -f /engine/bin/cleanup ]]; then
-    skip "No cleanup script"
-  fi
   run /engine/bin/cleanup "$(payload)"
 
   echo "$output"
@@ -85,9 +73,6 @@ setup() {
 }
 
 @test "release" {
-  if [[ ! -f /engine/bin/release ]]; then
-    skip "No release script"
-  fi
   run /engine/bin/release "$(payload)"
 
   echo "$output"
@@ -115,7 +100,7 @@ setup() {
   sleep 3
 
   # curl the index
-  run curl -s 127.0.0.1:4000 2>/dev/null
+  run curl -s 127.0.0.1:8080 2>/dev/null
 
   expected="Hello World!"
 
