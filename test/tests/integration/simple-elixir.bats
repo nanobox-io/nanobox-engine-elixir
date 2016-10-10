@@ -3,6 +3,11 @@
 # source environment helpers
 . util/env.sh
 
+# since this test is running in a stripped down context, we need to manually
+# export these for the compile process to complete successfully
+export MIX_HOME=/tmp/code/.mix
+export HEX_HOME=/tmp/code/.hex
+
 payload() {
   cat <<-END
 {
