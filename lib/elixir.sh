@@ -47,9 +47,21 @@ query_dependencies() {
   deps=()
 
   # mysql
+	if [[ `grep 'mysql\|maria' $(nos_code_dir)/mix.exs` ]]; then
+		deps+=(mysql-client)
+	fi
   # memcache
+	if [[ `grep 'memcache' $(nos_code_dir)/mix.exs` ]]; then
+		deps+=(libmemcached)
+	fi
   # postgres
+	if [[ `grep 'postgrex' $(nos_code_dir)/mix.exs` ]]; then
+		deps+=(postgresql94-client)
+	fi
   # redis
+	if [[ `grep 'red\|yar\|verk' $(nos_code_dir)/mix.exs` ]]; then
+		deps+=(redis)
+	fi
   
   echo "${deps[@]}"
 }

@@ -6,4 +6,4 @@ services:
 before_install:
   - docker pull nanobox/build
 
-script: sudo test/run_all.sh
+script: sudo stdbuf -o0 test/run_all.sh
