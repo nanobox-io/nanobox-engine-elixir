@@ -78,22 +78,18 @@ prep_env() {
 
 # install hex locally
 install_hex() {
-	if [[ -f $(nos_code_dir)/mix.exs ]]; then
-		cd $(nos_code_dir)
-		nos_run_process "Installing hex" \
-			"mix local.hex --force"
-		cd - >/dev/null
-	fi
+	cd $(nos_code_dir)
+	nos_run_process "Installing hex" \
+		"mix local.hex --force"
+	cd - >/dev/null
 }
 
 # install rebar locally
 install_rebar() {
-	if [[ -f $(nos_code_dir)/mix.exs ]]; then
-		cd $(nos_code_dir)
-		nos_run_process "Installing rebar" \
-			"mix local.rebar --force"
-		cd - >/dev/null
-	fi
+	cd $(nos_code_dir)
+	nos_run_process "Installing rebar" \
+		"mix local.rebar --force"
+	cd - >/dev/null
 }
 
 # fetch dependencies via mix
