@@ -6,7 +6,7 @@ This is an Elixir engine used to launch Elixir apps on [Nanobox](http://nanobox.
 To use the Elixir engine, specify `elixir` as your `engine` in your boxfile.yml.
 
 ```yaml
-code.build:
+run.config:
   engine: elixir
 ```
 
@@ -26,8 +26,8 @@ This engine exposes configuration options through the [boxfile.yml](http://docs.
 
 #### Overview of Boxfile Configuration Options
 ```yaml
-code.build:
-  config:
+run.config:
+  engine.config:
     # Elixir Settings
     runtime: elixir-1.3
 
@@ -54,8 +54,8 @@ Specifies which Elixir runtime to use. The following runtimes are available:
 - elixir-1.3
 
 ```yaml
-code.build:
-  config:
+run.config:
+  engine.config:
     runtime: elixir-1.3
 ```
 
@@ -70,8 +70,8 @@ Many applications utilize Javascript tools in some way. This engine allows you t
 Specifies which Node.js runtime and version to use. You can view the available Node.js runtimes in the [Node.js engine documentation](https://github.com/nanobox-io/nanobox-engine-nodejs#runtime).
 
 ```yaml
-code.build:
-  config:
+run.config:
+  engine.config:
     nodejs_runtime: nodejs-4.4
 ```
 
