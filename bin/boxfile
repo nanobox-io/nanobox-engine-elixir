@@ -5,8 +5,6 @@
 cat <<-END
 run.config:
   cache_dirs:
-    - .hex
-    - .mix
     - deps
     - _build
 END
