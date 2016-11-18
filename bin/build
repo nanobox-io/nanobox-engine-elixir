@@ -13,8 +13,6 @@ nos_init "$@"
 
 install_runtime_packages
 
-prep_env
-
 install_hex
 
 install_rebar

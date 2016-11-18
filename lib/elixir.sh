@@ -66,16 +66,6 @@ query_dependencies() {
   echo "${deps[@]}"
 }
 
-# ensure MIX_HOME and HEX_HOME are set properly
-prep_env() {
-	mix_home="$(nos_code_dir)/.mix"
-	hex_home="$(nos_code_dir)/.hex"
-	nos_set_evar      'MIX_HOME' $mix_home
-	nos_persist_evar  'MIX_HOME' $mix_home
-	nos_set_evar      'HEX_HOME' $hex_home
-	nos_persist_evar  'HEX_HOME' $hex_home
-}
-
 # install hex locally
 install_hex() {
 	cd $(nos_code_dir)

@@ -3,10 +3,8 @@
 # vim: ts=2 sw=2 ft=bash noet
 
 cat <<-END
-code.build:
-  lib_dirs:
-    - .hex
-    - .mix
+run.config:
+  cache_dirs:
     - deps
     - _build
 END
