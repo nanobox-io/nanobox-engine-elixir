@@ -18,7 +18,7 @@ runtime() {
 
 # Provide a default elixir version.
 default_runtime() {
-  echo "elixir-1.3"
+  echo "elixir-1.4"
 }
 
 # Install the elixir and erlang runtime along with any dependencies.
