@@ -38,5 +38,5 @@ for component in $(env | grep -o -E 'DATA_.+_HOST' | sed s/_HOST//); do
   host="${component}_HOST"
   
   # export the URL
-  export "${component}_URL=${!user}:${!pass}@${!host}"
+  export "${component}_URL=//${!user}:${!pass}@${!host}"
 done
