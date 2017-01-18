@@ -11,6 +11,8 @@ nos_init "$@"
 # source common lib
 . ${engine_lib_dir}/elixir.sh
 
+setup_profile
+
 install_runtime_packages
 
 install_hex
