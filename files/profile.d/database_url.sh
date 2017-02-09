@@ -37,6 +37,9 @@ for component in $(env | grep -o -E 'DATA_.+_HOST' | sed s/_HOST//); do
   # extract HOST
   host="${component}_HOST"
   
+  # database (by convention nanobox creates "gonano" database by default)
+  database="gonano"
+  
   # export the URL
-  export "${component}_URL=//${!user}:${!pass}@${!host}"
+  export "${component}_URL=//${!user}:${!pass}@${!host}/${database}"
 done
