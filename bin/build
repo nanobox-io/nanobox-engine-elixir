@@ -19,4 +19,6 @@ install_rebar
 
 fetch_deps
 
+persist_mix_env
+
 exit 0
