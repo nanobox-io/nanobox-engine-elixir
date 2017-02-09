@@ -11,6 +11,9 @@ nos_init "$@"
 # source common lib
 . ${engine_lib_dir}/elixir.sh
 
+# compile for production
+MIX_ENV=prod
+
 compile_deps
 
 compile
