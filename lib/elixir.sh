@@ -111,3 +111,10 @@ compile() {
 		cd - >/dev/null
 	fi
 }
+
+# persist MIX_ENV to production
+persist_mix_env() {
+	nos_template_file \
+		'profile.d/mix_env.sh' \
+		$(nos_etc_dir)/profile.d/mix_env.sh
+}
