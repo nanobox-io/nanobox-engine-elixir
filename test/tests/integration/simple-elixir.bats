@@ -97,7 +97,7 @@ setup() {
   cd /tmp/code
 
   # start the server in the background
-  mix phoenix.server &
+  MIX_ENV=prod mix phoenix.server &
 
   # grab the pid
   pid=$!
