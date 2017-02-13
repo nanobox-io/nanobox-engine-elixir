@@ -17,6 +17,7 @@ payload() {
   "cache_dir": "/tmp/cache",
   "etc_dir": "/data/etc",
   "env_dir": "/data/etc/env.d",
+  "profile_dir": "/data/etc/profile.d",
   "config": {}
 }
 END
