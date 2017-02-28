@@ -31,6 +31,24 @@ install_runtime_packages() {
   nos_install ${pkgs[@]}
 }
 
+# Elixir is built on the erlang ecosystem, which allows for processes
+# to be attached to remotely. This engine tries to make this process
+# simple, and has created a handful of scripts to facilitate in this.
+install_helper_scripts() {
+	# generate the files
+	nos_template_file \
+		'bin/elixir-start' \
+		$(nos_data_dir)/bin/elixir-start
+		
+	nos_template_file \
+		'bin/elixir-attach' \
+		$(nos_data_dir)/bin/elixir-attach
+		
+	# chmod them
+	chmod +x $(nos_data_dir)/bin/elixir-start
+	chmod +x $(nos_data_dir)/bin/elixir-attach
+}
+
 # Uninstall build dependencies
 uninstall_build_packages() {
   # currently elixir doesn't install any build-only deps... I think

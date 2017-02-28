@@ -1,0 +1,20 @@
+#!/bin/bash
+# 
+# A simple wrapper to facilitate connecting to an elixir
+# node that was started with `elixir-start`
+# 
+# Usage:
+# elixir-attach
+# 
+
+# exit if any any command fails
+set -e
+
+# establish the name and cookie (if available)
+name="${HOSTNAME//./-}@$(hostname -I)"
+
+# todo: conditionally fetch the cookie if it's set
+
+iex \
+  --sname console \
+  --remsh name
