@@ -37,16 +37,16 @@ install_runtime_packages() {
 install_helper_scripts() {
 	# generate the files
 	nos_template_file \
-		'bin/elixir-start' \
-		$(nos_data_dir)/bin/elixir-start
+		'bin/node-start' \
+		$(nos_data_dir)/bin/node-start
 		
 	nos_template_file \
-		'bin/elixir-attach' \
-		$(nos_data_dir)/bin/elixir-attach
+		'bin/node-attach' \
+		$(nos_data_dir)/bin/node-attach
 		
 	# chmod them
-	chmod +x $(nos_data_dir)/bin/elixir-start
-	chmod +x $(nos_data_dir)/bin/elixir-attach
+	chmod +x $(nos_data_dir)/bin/node-start
+	chmod +x $(nos_data_dir)/bin/node-attach
 }
 
 # Uninstall build dependencies

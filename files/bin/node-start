@@ -6,9 +6,9 @@
 # 
 # Usage:
 # 
-# elixir-start mix phoenix.server
+# node-start mix phoenix.server
 # or
-# elixir-start mix run —no-halt
+# node-start mix run —no-halt
 
 # exit if any any command fails
 set -e

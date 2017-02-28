@@ -4,7 +4,7 @@
 # node that was started with `elixir-start`
 # 
 # Usage:
-# elixir-attach
+# node-attach
 # 
 
 # exit if any any command fails
