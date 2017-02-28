@@ -11,10 +11,11 @@
 set -e
 
 # establish the name and cookie (if available)
-name="${HOSTNAME//./-}@$(hostname -I)"
+name="console@$(hostname -I)"
+remote="${HOSTNAME//./-}@$(hostname -I)"
 
 # todo: conditionally fetch the cookie if it's set
 
 iex \
-  --sname console \
-  --remsh name
+  --name $name \
+  --remsh $remote
