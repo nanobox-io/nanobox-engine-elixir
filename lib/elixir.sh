@@ -136,3 +136,10 @@ persist_mix_env() {
 		'profile.d/mix_env.sh' \
 		$(nos_etc_dir)/profile.d/mix_env.sh
 }
+
+# persist PORT to production
+persist_port_env() {
+	nos_template_file \
+		'profile.d/port_env.sh' \
+		$(nos_etc_dir)/profile.d/port_env.sh
+}

@@ -25,4 +25,6 @@ fetch_deps
 
 persist_mix_env
 
+persist_port_env
+
 exit 0
