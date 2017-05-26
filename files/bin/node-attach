@@ -12,10 +12,10 @@ set -e
 
 # establish the name and cookie (if available)
 name="console@$(hostname -I)"
+cookie="${COOKIE:-nanobox}"
 remote="${HOSTNAME//./-}@$(hostname -I)"
-
-# todo: conditionally fetch the cookie if it's set
 
 iex \
   --name $name \
+  --cookie $cookie \
   --remsh $remote
