@@ -15,9 +15,9 @@ set -e
 
 # establish the name and cookie (if available)
 name="${HOSTNAME//./-}@$(hostname -I)"
-
-# todo: conditionally fetch the cookie if it's set
+cookie="${COOKIE:-nanobox}"
 
 elixir \
   --name $name \
+  --cookie $cookie \
   -S $@
