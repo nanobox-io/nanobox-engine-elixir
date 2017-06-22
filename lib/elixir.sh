@@ -21,9 +21,23 @@ default_runtime() {
   echo "elixir-1.4"
 }
 
+# Determine the erlang runtime to install. This will first check
+# within the boxfile.yml, then will rely on default_erlang_runtime to
+# provide a sensible default
+erlang_runtime() {
+  echo $(nos_validate \
+    "$(nos_payload "config_erlang_runtime")" \
+    "string" "$(default_erlang_runtime)")
+}
+
+# Provide a default erlang version.
+default_erlang_runtime() {
+  echo "erlang-19"
+}
+
 # Install the elixir and erlang runtime along with any dependencies.
 install_runtime_packages() {
-  pkgs=("$(runtime)")
+  pkgs=("$(erlang_runtime)" "$(runtime)")
   
   # add any client dependencies
   pkgs+=("$(query_dependencies)")
