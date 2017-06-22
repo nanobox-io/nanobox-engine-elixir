@@ -69,5 +69,22 @@ run.config:
 
 ---
 
+#### erlang_runtime
+Specifies which Erlang runtime to use. The following runtimes are available:
+
+- erlang-18.0
+- erlang-18.1
+- erlang-18.3
+- erlang-19.0
+- erlang-19.2
+- erlang-19.3
+- erlang-20.0
+
+```yaml
+run.config:
+  engine.config:
+    erlang_runtime: erlang-20.0
+```
+
 ## Help & Support
 This is an Elixir engine provided by [Nanobox](http://nanobox.io). If you need help with this engine, you can reach out to us in the [Nanobox Slack channel](https://nanoboxio.slack.com) (access can be requested at [slack.nanoapp.io](http://slack.nanoapp.io)). If you are running into an issue with the engine, feel free to [create a new issue on this project](https://github.com/nanobox-io/nanobox-engine-elixir/issues/new).
