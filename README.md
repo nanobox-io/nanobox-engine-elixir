@@ -84,7 +84,7 @@ Specifies which Erlang runtime to use. The following runtimes are available:
 ```yaml
 run.config:
   engine.config:
-    erlang_runtime: erlang-20.0
+    erlang_runtime: erlang-20
 ```
 
 ## Help & Support
