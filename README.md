@@ -80,6 +80,7 @@ Specifies which Erlang runtime to use. The following runtimes are available:
 - erlang-19.2
 - erlang-19.3 *(default)*
 - erlang-20.0
+- erlang-20.1
 
 ```yaml
 run.config:
