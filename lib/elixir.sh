@@ -4,7 +4,7 @@
 # Copy the compiled jars into the app directory to run live
 publish_release() {
 	nos_print_bullet "Moving build into live app directory..."
-	rsync -a $(nos_code_dir)/ $(nos_app_dir)
+	rsync -a -k $(nos_code_dir)/ $(nos_app_dir)
 }
 
 # Determine the elixir runtime to install. This will first check
@@ -38,7 +38,7 @@ default_erlang_runtime() {
 # Install the elixir and erlang runtime along with any dependencies.
 install_runtime_packages() {
   pkgs=("$(erlang_runtime)" "$(runtime)")
-  
+
   # add any client dependencies
   pkgs+=("$(query_dependencies)")
 
@@ -53,11 +53,11 @@ install_helper_scripts() {
 	nos_template_file \
 		'bin/node-start' \
 		$(nos_data_dir)/bin/node-start
-		
+
 	nos_template_file \
 		'bin/node-attach' \
 		$(nos_data_dir)/bin/node-attach
-		
+
 	# chmod them
 	chmod +x $(nos_data_dir)/bin/node-start
 	chmod +x $(nos_data_dir)/bin/node-attach
@@ -94,7 +94,7 @@ query_dependencies() {
 	if [[ `grep 'red\|yar\|verk' $(nos_code_dir)/mix.exs` ]]; then
 		deps+=(redis)
 	fi
-  
+
   echo "${deps[@]}"
 }
 
