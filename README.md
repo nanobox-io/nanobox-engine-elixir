@@ -48,7 +48,7 @@ This engine exposes configuration options through the [boxfile.yml](http://docs.
 run.config:
   engine.config:
     # Elixir Settings
-    runtime: elixir-1.4
+    runtime: elixir-1.5
 ```
 
 ---
@@ -56,10 +56,6 @@ run.config:
 #### runtime
 Specifies which Elixir runtime to use. The following runtimes are available:
 
-- elixir-1.0
-- elixir-1.1
-- elixir-1.3
-- elixir-1.4 *(default)*
 - elixir-1.5
 
 ```yaml
@@ -73,19 +69,14 @@ run.config:
 #### erlang_runtime
 Specifies which Erlang runtime to use. The following runtimes are available:
 
-- erlang-18.0
-- erlang-18.1
 - erlang-18.3
-- erlang-19.0
-- erlang-19.2
-- erlang-19.3 *(default)*
-- erlang-20.0
+- erlang-19.3
 - erlang-20.1
 
 ```yaml
 run.config:
   engine.config:
-    erlang_runtime: erlang-20.0
+    erlang_runtime: erlang-20
 ```
 
 ## Help & Support
