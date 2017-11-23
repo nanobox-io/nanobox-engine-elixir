@@ -18,7 +18,7 @@ runtime() {
 
 # Provide a default elixir version.
 default_runtime() {
-  echo "elixir-1.4"
+  echo "elixir-1.5"
 }
 
 # Determine the erlang runtime to install. This will first check
@@ -32,7 +32,7 @@ erlang_runtime() {
 
 # Provide a default erlang version.
 default_erlang_runtime() {
-  echo "erlang-19"
+  echo "erlang-20"
 }
 
 # Install the elixir and erlang runtime along with any dependencies.
