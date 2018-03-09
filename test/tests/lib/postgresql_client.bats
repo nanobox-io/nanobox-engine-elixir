@@ -61,7 +61,7 @@ END
 END
 )"
 
-  cat > /tmp/code/Gemfile <<-END
+  cat > /tmp/code/boxfile.yml <<-END
 data.db:
     image: nanobox/postgresql:9.5
 END
