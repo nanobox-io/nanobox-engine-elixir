@@ -84,6 +84,8 @@ run.config:
 #### postgresql_client_version
 Specifies what version of the PostgreSQL client to use:
 
+NOTE: The engine will try to detect the correct version first.
+
 - 9.3
 - 9.4
 - 9.5
