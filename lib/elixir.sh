@@ -11,9 +11,15 @@ publish_release() {
 # within the boxfile.yml, then will rely on default_runtime to
 # provide a sensible default
 runtime() {
-  echo $(nos_validate \
+  _runtime=$(nos_validate \
     "$(nos_payload "config_runtime")" \
     "string" "$(default_runtime)")
+  if [[ "$_runtime" =~ "erlang" ]]; then
+    echo "$_runtime"
+  else
+    _erlang_runtime=$(erlang_runtime)
+    echo "${_erlang_runtime//-/}-${_runtime}"
+  fi
 }
 
 # Provide a default elixir version.
@@ -25,9 +31,18 @@ default_runtime() {
 # within the boxfile.yml, then will rely on default_erlang_runtime to
 # provide a sensible default
 erlang_runtime() {
-  echo $(nos_validate \
-    "$(nos_payload "config_erlang_runtime")" \
-    "string" "$(default_erlang_runtime)")
+  _runtime=$(nos_validate \
+    "$(nos_payload "config_runtime")" \
+    "string" "$(default_runtime)")
+  if [[ "$_runtime" =~ "erlang" ]]; then
+    _erlang_runtime=${_runtime//-elixir*/}
+    echo "${_erlang_runtime//erlang/erlang-}"
+  else
+    echo $(nos_validate \
+      "$(nos_payload "config_erlang_runtime")" \
+      "string" "$(default_erlang_runtime)")
+  fi
+
 }
 
 # Provide a default erlang version.
