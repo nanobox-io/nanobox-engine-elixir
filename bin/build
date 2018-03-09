@@ -2,6 +2,8 @@
 # -*- mode: bash; tab-width: 2; -*-
 # vim: ts=2 sw=2 ft=bash noet
 
+set -e
+
 # source the Nos framework
 . /opt/nanobox/nos/common.sh
 
@@ -15,10 +17,16 @@ setup_profile
 
 install_runtime_packages
 
+install_helper_scripts
+
 install_hex
 
 install_rebar
 
 fetch_deps
+
+persist_mix_env
+
+persist_port_env
 
 exit 0

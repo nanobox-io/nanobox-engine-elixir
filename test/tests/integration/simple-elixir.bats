@@ -17,6 +17,7 @@ payload() {
   "cache_dir": "/tmp/cache",
   "etc_dir": "/data/etc",
   "env_dir": "/data/etc/env.d",
+  "profile_dir": "/data/etc/profile.d",
   "config": {}
 }
 END
@@ -96,7 +97,7 @@ setup() {
   cd /tmp/code
 
   # start the server in the background
-  mix phoenix.server &
+  MIX_ENV=prod mix phoenix.server &
 
   # grab the pid
   pid=$!

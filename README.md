@@ -11,7 +11,7 @@ run.config:
 ```
 
 ## Build Process
-When [running a build](https://docs.nanboox.io/cli/build/), this engine compiles code by doing the following:
+When preparing your runtime, this engine compiles code by doing the following:
 
 ```
 > mix local.hex --force
@@ -19,6 +19,25 @@ When [running a build](https://docs.nanboox.io/cli/build/), this engine compiles
 > mix deps.get --force
 > mix deps.compile --force
 > mix compile --force
+```
+
+## Helper Scripts
+This engine provides helper scripts to make managing your Elixir application easier.
+
+### node-attach
+The `node-attach` helper facilitates connecting to an Elixir node that was started with `elixir-start`.
+
+```bash
+node-attach
+```
+
+### node-start
+The `node-start` helper ensures that nodes are started with credentials sufficient to cluster and attach to after they are running.
+
+```bash
+# Examples
+node-start mix phoenix.server
+node-start mix run —no-halt
 ```
 
 ## Configuration Options
@@ -29,53 +48,36 @@ This engine exposes configuration options through the [boxfile.yml](http://docs.
 run.config:
   engine.config:
     # Elixir Settings
-    runtime: elixir-1.3
-
-    # Node.js Settings
-    nodejs_runtime: nodejs-4.4
+    runtime: elixir-1.5
 ```
-
-##### Quick Links
-[Elixir Settings](#elixir-settings)  
-[Node.js Settings](#nodejs-settings)
-
----
-
-### Elixir Settings
-The following setting allows you to define your Elixir runtime environment.
 
 ---
 
 #### runtime
 Specifies which Elixir runtime to use. The following runtimes are available:
 
-- elixir-1.0
-- elixir-1.1
-- elixir-1.3
+- elixir-1.5
 
 ```yaml
 run.config:
   engine.config:
-    runtime: elixir-1.3
+    runtime: elixir-1.5
 ```
 
 ---
 
-### Node.js Runtime Settings
-Many applications utilize Javascript tools in some way. This engine allows you to specify which Node.js runtime you'd like to use.
+#### erlang_runtime
+Specifies which Erlang runtime to use. The following runtimes are available:
 
----
-
-#### nodejs_runtime
-Specifies which Node.js runtime and version to use. You can view the available Node.js runtimes in the [Node.js engine documentation](https://github.com/nanobox-io/nanobox-engine-nodejs#runtime).
+- erlang-18.3
+- erlang-19.3
+- erlang-20.1
 
 ```yaml
 run.config:
   engine.config:
-    nodejs_runtime: nodejs-4.4
+    erlang_runtime: erlang-20
 ```
-
----
 
 ## Help & Support
-This is an Elixir engine provided by [Nanobox](http://nanobox.io). If you need help with this engine, you can reach out to us in the [#nanobox IRC channel](http://webchat.freenode.net/?channels=nanobox). If you are running into an issue with the engine, feel free to [create a new issue on this project](https://github.com/nanobox-io/nanobox-engine-elixir/issues/new).
+This is an Elixir engine provided by [Nanobox](http://nanobox.io). If you need help with this engine, you can reach out to us in the [Nanobox Slack channel](https://nanoboxio.slack.com) (access can be requested at [slack.nanoapp.io](http://slack.nanoapp.io)). If you are running into an issue with the engine, feel free to [create a new issue on this project](https://github.com/nanobox-io/nanobox-engine-elixir/issues/new).
