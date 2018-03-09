@@ -21,7 +21,7 @@ setup() {
   nos_reset_payload
 }
 
-@test "Use default postgresql client package" {
+@test "Use default PostgreSQL client package" {
 
       nos_init "$(cat <<-END
 {
@@ -52,4 +52,21 @@ END
   [ "$postgresql_version" = "95" ]
 }
 
+@test "Detect PostgreSQL version from the boxfile" {
 
+  nos_init "$(cat <<-END
+{
+  "code_dir": "/tmp/code"
+}
+END
+)"
+
+  cat > /tmp/code/Gemfile <<-END
+data.db:
+    image: nanobox/postgresql:9.5
+END
+
+  postgresql_version=$(postgresql_version)
+
+  [ "$postgresql_version" = "95" ]
+}
