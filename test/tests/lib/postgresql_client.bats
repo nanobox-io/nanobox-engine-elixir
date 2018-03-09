@@ -36,7 +36,7 @@ END
   [ "$postgresql_version" = "96" ]
 }
 
-@test "Use default version of erlang and specify version elixir" {
+@test "Specify what version of PostgreSQL client to use" {
 
       nos_init "$(cat <<-END
 {
