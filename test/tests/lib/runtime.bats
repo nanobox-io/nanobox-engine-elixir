@@ -110,22 +110,3 @@ END
   [ "$runtime" = "erlang19-elixir-1.6" ]
   [ "$erlang_runtime" = "erlang-19" ]
 }
-
-@test "generate elixir runtime from specific erlang and elixir runtimes in the boxfile" {
-
-      nos_init "$(cat <<-END
-{
-  "config": {
-    "runtime": "elixir-1.6",
-    "erlang_runtime": "erlang-19"
-  }
-}
-END
-)"
-
-  runtime=$(runtime)
-  erlang_runtime=$(erlang_runtime)
-
-  [ "$runtime" = "erlang19-elixir-1.6" ]
-  [ "$erlang_runtime" = "erlang-19" ]
-}
