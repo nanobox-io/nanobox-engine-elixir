@@ -22,8 +22,7 @@ setup() {
 }
 
 @test "Use default versions of erlang and elixir" {
-
-      nos_init "$(cat <<-END
+  nos_init "$(cat <<-END
 {
   "config": {
   }
@@ -39,8 +38,7 @@ END
 }
 
 @test "Use default version of erlang and specify version elixir" {
-
-      nos_init "$(cat <<-END
+  nos_init "$(cat <<-END
 {
   "config": {
     "runtime": "elixir-1.6"
@@ -57,8 +55,7 @@ END
 }
 
 @test "Use specified version of erlang and default elixir" {
-
-      nos_init "$(cat <<-END
+  nos_init "$(cat <<-END
 {
   "config": {
     "erlang_runtime": "erlang-19"
@@ -93,8 +90,7 @@ END
 }
 
 @test "generate elixir runtime from specific erlang and elixir runtimes in the boxfile" {
-
-      nos_init "$(cat <<-END
+  nos_init "$(cat <<-END
 {
   "config": {
     "runtime": "elixir-1.6",
@@ -109,4 +105,19 @@ END
 
   [ "$runtime" = "erlang19-elixir-1.6" ]
   [ "$erlang_runtime" = "erlang-19" ]
+}
+
+@test "generate condensed erlang runtime " {
+  nos_init "$(cat <<-END
+{
+  "config": {
+    "erlang_runtime": "erlang-19.3"
+  }
+}
+END
+)"
+
+  condensed_erlang_runtime=$(condensed_erlang_runtime)
+
+  [ "$condensed_erlang_runtime" = "erlang19" ]
 }
