@@ -3,8 +3,8 @@
 
 # Copy the compiled jars into the app directory to run live
 publish_release() {
-	nos_print_bullet "Moving build into live app directory..."
-	rsync -a -k $(nos_code_dir)/ $(nos_app_dir)
+  nos_print_bullet "Moving build into live app directory..."
+  rsync -a -k $(nos_code_dir)/ $(nos_app_dir)
 }
 
 # Determine the elixir runtime to install. This will first check
@@ -17,8 +17,8 @@ runtime() {
   if [[ "$_runtime" =~ "erlang" ]]; then
     echo "$_runtime"
   else
-    _erlang_runtime=$(erlang_runtime)
-    echo "${_erlang_runtime//-/}-${_runtime}"
+    _erlang_runtime=$(condensed_erlang_runtime)
+    echo "${_erlang_runtime}-${_runtime}"
   fi
 }
 
@@ -42,7 +42,13 @@ erlang_runtime() {
       "$(nos_payload "config_erlang_runtime")" \
       "string" "$(default_erlang_runtime)")
   fi
+}
 
+# Condensed erlang runtime. Chop off minor versions on the erlang version
+# and remove the dash
+condensed_erlang_runtime() {
+  version=$(expr "$(erlang_runtime)" : '\([a-z\-]*-*[0-9]*\)')
+  echo "${version//[.-]/}"
 }
 
 # Provide a default erlang version.
@@ -64,18 +70,18 @@ install_runtime_packages() {
 # to be attached to remotely. This engine tries to make this process
 # simple, and has created a handful of scripts to facilitate in this.
 install_helper_scripts() {
-	# generate the files
-	nos_template_file \
-		'bin/node-start' \
-		$(nos_data_dir)/bin/node-start
+  # generate the files
+  nos_template_file \
+    'bin/node-start' \
+    $(nos_data_dir)/bin/node-start
 
-	nos_template_file \
-		'bin/node-attach' \
-		$(nos_data_dir)/bin/node-attach
+  nos_template_file \
+    'bin/node-attach' \
+    $(nos_data_dir)/bin/node-attach
 
-	# chmod them
-	chmod +x $(nos_data_dir)/bin/node-start
-	chmod +x $(nos_data_dir)/bin/node-attach
+  # chmod them
+  chmod +x $(nos_data_dir)/bin/node-start
+  chmod +x $(nos_data_dir)/bin/node-attach
 }
 
 # Uninstall build dependencies
@@ -94,21 +100,21 @@ query_dependencies() {
   deps=()
 
   # mysql
-	if [[ `grep 'mysql\|maria' $(nos_code_dir)/mix.exs` ]]; then
-		deps+=(mysql-client)
-	fi
+  if [[ `grep 'mysql\|maria' $(nos_code_dir)/mix.exs` ]]; then
+    deps+=(mysql-client)
+  fi
   # memcache
-	if [[ `grep 'memcache' $(nos_code_dir)/mix.exs` ]]; then
-		deps+=(libmemcached)
-	fi
-  # postgres
+  if [[ `grep 'memcache' $(nos_code_dir)/mix.exs` ]]; then
+    deps+=(libmemcached)
+  fi
+  # postgresql
 	if [[ `grep 'postgrex' $(nos_code_dir)/mix.exs` ]]; then
 		deps+=(postgresql$(postgresql_version)-client)
 	fi
   # redis
-	if [[ `grep 'red\|yar\|verk' $(nos_code_dir)/mix.exs` ]]; then
-		deps+=(redis)
-	fi
+  if [[ `grep 'red\|yar\|verk' $(nos_code_dir)/mix.exs` ]]; then
+    deps+=(redis)
+  fi
 
   echo "${deps[@]}"
 }
@@ -146,60 +152,60 @@ detect_postgresql_version() {
 
 # install hex locally
 install_hex() {
-	cd $(nos_code_dir)
-	nos_run_process "Installing hex" \
-		"mix local.hex --force"
-	cd - >/dev/null
+  cd $(nos_code_dir)
+  nos_run_process "Installing hex" \
+    "mix local.hex --force"
+  cd - >/dev/null
 }
 
 # install rebar locally
 install_rebar() {
-	cd $(nos_code_dir)
-	nos_run_process "Installing rebar" \
-		"mix local.rebar --force"
-	cd - >/dev/null
+  cd $(nos_code_dir)
+  nos_run_process "Installing rebar" \
+    "mix local.rebar --force"
+  cd - >/dev/null
 }
 
 # fetch dependencies via mix
 fetch_deps() {
-	if [[ -f $(nos_code_dir)/mix.exs ]]; then
-		cd $(nos_code_dir)
-		nos_run_process "Fetching mix dependencies" \
-			"mix deps.get --force"
-		cd - >/dev/null
-	fi
+  if [[ -f $(nos_code_dir)/mix.exs ]]; then
+    cd $(nos_code_dir)
+    nos_run_process "Fetching mix dependencies" \
+      "mix deps.get --force"
+    cd - >/dev/null
+  fi
 }
 
 # compile dependencies via mix
 compile_deps() {
-	if [[ -f $(nos_code_dir)/mix.exs ]]; then
-		cd $(nos_code_dir)
-		nos_run_process "Compiling mix dependencies" \
-			"mix deps.compile --force"
-		cd - >/dev/null
-	fi
+  if [[ -f $(nos_code_dir)/mix.exs ]]; then
+    cd $(nos_code_dir)
+    nos_run_process "Compiling mix dependencies" \
+      "mix deps.compile --force"
+    cd - >/dev/null
+  fi
 }
 
 # compile the application
 compile() {
-	if [[ -f $(nos_code_dir)/mix.exs ]]; then
-		cd $(nos_code_dir)
-		nos_run_process "Compiling app" \
-			"mix compile --force"
-		cd - >/dev/null
-	fi
+  if [[ -f $(nos_code_dir)/mix.exs ]]; then
+    cd $(nos_code_dir)
+    nos_run_process "Compiling app" \
+      "mix compile --force"
+    cd - >/dev/null
+  fi
 }
 
 # persist MIX_ENV to production
 persist_mix_env() {
-	nos_template_file \
-		'profile.d/mix_env.sh' \
-		$(nos_etc_dir)/profile.d/mix_env.sh
+  nos_template_file \
+    'profile.d/mix_env.sh' \
+    $(nos_etc_dir)/profile.d/mix_env.sh
 }
 
 # persist PORT to production
 persist_port_env() {
-	nos_template_file \
-		'profile.d/port_env.sh' \
-		$(nos_etc_dir)/profile.d/port_env.sh
+  nos_template_file \
+    'profile.d/port_env.sh' \
+    $(nos_etc_dir)/profile.d/port_env.sh
 }
