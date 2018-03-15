@@ -107,16 +107,47 @@ query_dependencies() {
   if [[ `grep 'memcache' $(nos_code_dir)/mix.exs` ]]; then
     deps+=(libmemcached)
   fi
-  # postgres
-  if [[ `grep 'postgrex' $(nos_code_dir)/mix.exs` ]]; then
-    deps+=(postgresql94-client)
-  fi
+  # postgresql
+	if [[ `grep 'postgrex' $(nos_code_dir)/mix.exs` ]]; then
+		deps+=(postgresql$(postgresql_version)-client)
+	fi
   # redis
   if [[ `grep 'red\|yar\|verk' $(nos_code_dir)/mix.exs` ]]; then
     deps+=(redis)
   fi
 
   echo "${deps[@]}"
+}
+
+postgresql_version() {
+  version=$(nos_validate \
+    "$(nos_payload "config_postgresql_client_version")" \
+    "string" "$(default_postgresql_version)")
+  
+  version=$(expr "${version}" : '\([0-9]*\.[0-9]*\)')  
+  # we only need the condensed version
+  echo "${version//[.-]/}"
+}
+
+# detect the version from the boxfile, or fall back to a sensible default
+default_postgresql_version() {
+  # try to detect the version if specified in the boxfile
+  detected=$(detect_postgresql_version)
+  
+  if [[ "$detected" = "" ]]; then
+    # the default, fallback
+    echo "9.6"
+  else
+    echo $detected
+  fi
+}
+
+# try to determine the version automatically
+detect_postgresql_version() {
+  cat $(nos_code_dir)/boxfile.yml \
+    | grep "nanobox/postgresql" \
+      | awk -F ":" '{print $3}' \
+        | head -n 1
 }
 
 # install hex locally
