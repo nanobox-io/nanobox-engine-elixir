@@ -17,7 +17,7 @@ runtime() {
   if [[ "$_runtime" =~ "erlang" ]]; then
     echo "$_runtime"
   else
-    _erlang_runtime=$(condesed_erlang_runtime)
+    _erlang_runtime=$(condensed_erlang_runtime)
     echo "${_erlang_runtime}-${_runtime}"
   fi
 }
@@ -46,7 +46,7 @@ erlang_runtime() {
 
 # Condensed erlang runtime. Chop off minor versions on the erlang version
 # and remove the dash
-condesed_erlang_runtime() {
+condensed_erlang_runtime() {
   version=$(expr "$(erlang_runtime)" : '\([a-z\-]*-*[0-9]*\)')
   echo "${version//[.-]/}"
 }
