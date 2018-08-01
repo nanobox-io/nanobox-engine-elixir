@@ -1,11 +1,11 @@
 #!/bin/bash
-# 
+#
 # A simple wrapper to facilitate connecting to an elixir
-# node that was started with `elixir-start`
-# 
+# node that was started with `node-start`
+#
 # Usage:
 # node-attach
-# 
+#
 
 # exit if any any command fails
 set -e
