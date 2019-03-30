@@ -196,6 +196,13 @@ compile() {
   fi
 }
 
+# copy any profile script that need to be run on login
+setup_profile() {
+	nos_template_file \
+		"profile.d/database_url.sh" \
+		"$(nos_etc_dir)/profile.d/database_url.sh"
+}
+
 # persist MIX_ENV to production
 persist_mix_env() {
   nos_template_file \
