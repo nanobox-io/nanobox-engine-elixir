@@ -25,7 +25,7 @@ When preparing your runtime, this engine compiles code by doing the following:
 This engine provides helper scripts to make managing your Elixir application easier.
 
 ### node-attach
-The `node-attach` helper facilitates connecting to an Elixir node that was started with `elixir-start`.
+The `node-attach` helper facilitates connecting to an Elixir node that was started with `node-start`.
 
 ```bash
 node-attach
@@ -38,6 +38,13 @@ The `node-start` helper ensures that nodes are started with credentials sufficie
 # Examples
 node-start mix phoenix.server
 node-start mix run —no-halt
+```
+
+### node-stop
+The `node-stop` helper ensures that an Elixir node started with `node-start` is stopped gracefully.
+
+```bash
+node-stop
 ```
 
 ## Configuration Options
